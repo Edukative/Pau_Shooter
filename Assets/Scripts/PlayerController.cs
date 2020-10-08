@@ -30,6 +30,13 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rigidBody;
 
+    //STATS
+    public bool isDead;
+    public int health;
+    public int shield;
+    public int ammo;
+    public int savedAmmo;
+    public bool hasKey = false; // to open a dor
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +73,8 @@ public class PlayerController : MonoBehaviour
         myCamera.transform.Rotate(mouse_y, 0, 0);
 
 
-        float dir_x = Input.GetAxis("Horitzontal");
-        float dir_z = Input.GetAxis("Vertical");
+        float dir_x = Input.GetAxis("vertical");
+        float dir_z = Input.GetAxis("horitzontal");
 
         float rumMultiplier = (Input.GetAxis("Run") > 0) ? 2.0f : 1.0f;
 
@@ -87,3 +94,4 @@ public class PlayerController : MonoBehaviour
     }
 
 }
+
