@@ -81,15 +81,41 @@ public class PlayerController : MonoBehaviour
         // press shift to run
         direction.x = dir_x * walkingSpeed * runMultiplier * Time.deltaTime;
         direction.z = dir_z * walkingSpeed * runMultiplier * Time.deltaTime;
+        direction.y = gravity * gravityForce;
 
         player.Move(direction);
 
         // press sace to jump
         if ((Input.GetAxis("Jump") > 0) && (isGrounded))
         {
+            direction.y = jumpForce;
+            if (jumpForce > 0.0f)
+            {
             rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+
         }
 
+        // detects if is touching gorund
+        isGrounded = player.isGrounded;
+
+        // manual gravity
+        if (!isGrounded)
+        {
+            direction.y -= gravity * gravityForce * Time.deltaTime;
+        }
+
+        //recover the control of the mouse when pressing esc
+        if (Input.GetAxis("Cancel") > 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        // lock the mouse again whwn pressig left click
+        if (Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
     }
 
